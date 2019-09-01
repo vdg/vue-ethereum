@@ -51,7 +51,7 @@ All features can be obtained from $veth property in Vue components.
 
 Connect to current window provider
 
-**work in progress for beta version, please see example in `examples/wue-example`**.
+**work in progress for beta version, please see example in `examples/vue-example`**.
 
 
 ## Examples
