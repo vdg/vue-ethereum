@@ -51,6 +51,10 @@ All features can be obtained from $eth property in Vue components.
 
 Connect to current window provider
 
+#### `.web3`
+
+Get a web3.js instance with the current connected provider
+
 **work in progress for beta version, please see example in `examples/vue-example`**.
 
 

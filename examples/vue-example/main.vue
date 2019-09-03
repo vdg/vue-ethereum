@@ -4,9 +4,10 @@
     <h1 v-else="$eth.isConnected">
       You are not connected to an Ethereum network
     </h1>
-    <button v-if="$eth.isConnected" @click='off()'>switch off vue-ethereum</button>
-    <button v-else @click='on()'>switch on vue-ethereum</button>
+    <button v-if="!$eth.isConnected" @click='on()'>switch on vue-ethereum</button>
     <div v-if="$eth.isConnected">
+      <button @click='off()'>switch off vue-ethereum</button>
+      <button @click='log()'>get last logs</button>
       <p>Wallet type: {{ $eth.walletType }}</p>
       <p>This is {{ $eth.isTestNetwork ? '' : 'not' }} a test network</p>
       <h2 v-if="$eth.accounts.length">Your account<span v-if="$eth.accounts.length > 1">s</span></h2>
@@ -18,6 +19,11 @@
           <br>(balance = {{ $eth.balance(account) }})
         </li>
       </ul>
+      <h2 v-if="logs.length">Logs</h2>
+      <ul v-if="logs.length">
+        <li v-for='log in logs' :key='log.id'><pre>{{ log }}</pre></li>
+      </ul>
+
     </div>
   </div>
 </template>
@@ -27,11 +33,17 @@ export default {
   name: 'vue-app',
   data() {
     return {
+      logs: []
     }
   },
   methods: {
     on() { this.$eth.on() },
-    off() { this.$eth.off() }
+    off() { this.$eth.off() },
+    async log() {
+      this.logs = await this.$eth.web3.eth.getPastLogs({
+        fromBlock: 'latest'
+      })
+    }
   }
 }
 </script>

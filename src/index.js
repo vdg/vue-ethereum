@@ -69,7 +69,6 @@ export default class VueEthereum {
         },
         watch: {
           web3State: function (val, oldVal) {
-            console.log('web3 state has changed: %s, old: %s', val, oldVal)
             this.accounts = web3Watcher.accounts
             this.networkId = web3Watcher.networkId
             this.walletType = web3Watcher.walletType
@@ -131,6 +130,10 @@ export default class VueEthereum {
 
   get accounts () {
     return this.stateHandler.accounts
+  }
+
+  get web3 () {
+    return web3Watcher.instance
   }
 
   explorer (type, id) {
