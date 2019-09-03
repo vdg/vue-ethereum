@@ -1,6 +1,8 @@
 
 // import vWeb3Component from './components/eth-tx.vue'
 
+import { getNetwork, explorer } from './constants.js'
+
 import Web3Watcher from './watcher.js'
 
 const isDebug = () => process.env.NODE_ENV !== 'production'
@@ -10,10 +12,10 @@ const web3Watcher = Web3Watcher() // ADD potential option
 export default class VueEthereum {
   constructor (options = {}) {
     const defaults = {
-      accessorName: '$veth',
+      accessorName: '$eth',
       // Vuex Options
       useVuex: false
-      // vuexModuleName: 'veth',
+      // vuexModuleName: 'eth',
       // Components
       // registerComponent: true,
       // Directives
@@ -115,12 +117,24 @@ export default class VueEthereum {
     return this.stateHandler.networkId
   }
 
+  get networkName () {
+    return getNetwork(this.stateHandler.networkId).name
+  }
+
+  get isTestNetwork () {
+    return getNetwork(this.stateHandler.networkId).isTest
+  }
+
   get walletType () {
     return this.stateHandler.walletType
   }
 
   get accounts () {
     return this.stateHandler.accounts
+  }
+
+  explorer (type, id) {
+    return explorer(this.stateHandler.networkId)(type, id)
   }
 
   balance (account) {
@@ -142,21 +156,21 @@ export function install (Vue) {
      * VueEthereum init hook, injected into each instances init hooks list.
      */
     beforeCreate () {
-      const { veth, store, parent } = this.$options
+      const { eth, store, parent } = this.$options
 
       let instance = null
-      if (veth) {
-        instance = typeof veth === 'function' ? new veth() : veth // eslint-disable-line new-cap
+      if (eth) {
+        instance = typeof eth === 'function' ? new eth() : eth // eslint-disable-line new-cap
         // Inject store
         instance.init(Vue, store)
-      } else if (parent && parent.__$vethInstance) {
-        instance = parent.__$vethInstance
+      } else if (parent && parent.__$ethInstance) {
+        instance = parent.__$ethInstance
         instance.init(Vue, parent.$store)
       }
 
       if (instance) {
         // Store helper for internal use
-        this.__$vethInstance = instance
+        this.__$ethInstance = instance
         this[instance.options.accessorName] = instance
       }
     }

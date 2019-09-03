@@ -7,5 +7,5 @@ Vue.use(VueEthereum)
 export default ({app}) => {
     // inject options from module
     const pluginOptions = [<%= serialize(options) %>][0]
-    app.veth = new VueEthereum(pluginOptions)
+    app.eth = new VueEthereum(pluginOptions)
 }

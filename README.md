@@ -28,7 +28,7 @@ Vue.use(VueEthereum)
 
 new Vue({
   // your vue config
-  veth: new VueEthereum(),
+  eth: new VueEthereum(),
 })
 ```
 
@@ -45,7 +45,7 @@ Add `vue-ethereum/nuxt` to modules section of `nuxt.config.js`
 ## Global Helpers
 
 **vue-ethereum** provides high level helpers to use in your templates.
-All features can be obtained from $veth property in Vue components.
+All features can be obtained from $eth property in Vue components.
 
 #### `.on()`
 

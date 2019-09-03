@@ -1,5 +1,5 @@
 
-export const NETWORKS = {
+const NETWORKS = {
   1: {
     name: 'Eth - Main Net',
     unit: 'ETH',
@@ -90,4 +90,12 @@ export const NETWORKS = {
     isTest: true,
     hasExplorer: false
   }
+}
+
+export const getNetwork = networkId => NETWORKS[networkId] ? NETWORKS[networkId] : {}
+
+export const explorer = networkId => (type, id) => {
+  const explorer = getNetwork(networkId).explorer
+  if (!explorer || !explorer[type]) return null
+  return `${explorer.root}${explorer[type]}${id}`
 }

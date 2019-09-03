@@ -29,7 +29,7 @@
     "release": "release-it",
     "precommit": "lint-staged",
     "lint": "eslint src/*.js examples/vue-example",
-    "dev-vue": "poi examples/vue-example/index.js",
+    "dev-vue": "NODE_ENV=test poi examples/vue-example/index.js",
     "build": "rollup -c --environment BUILD:production"
   },
   "release-it": {

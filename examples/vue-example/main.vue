@@ -1,15 +1,21 @@
 <template>
   <div id="app">
-    <h1 v-if="$veth.isConnected">Connected to {{ $veth.networkId }} <span class="animated">❤️</span></h1>
-    <h1 v-else="$veth.isConnected">You are not connected to Ethereum</h1>
-    <button v-if="$veth.isConnected" @click='off()'>switch off vue-ethereum</button>
+    <h1 v-if="$eth.isConnected">Connected to {{ $eth.networkName }} <span class="animated">❤️</span></h1>
+    <h1 v-else="$eth.isConnected">
+      You are not connected to an Ethereum network
+    </h1>
+    <button v-if="$eth.isConnected" @click='off()'>switch off vue-ethereum</button>
     <button v-else @click='on()'>switch on vue-ethereum</button>
-    <div v-if="$veth.isConnected">
-      <p>Wallet type: {{ $veth.walletType }}</p>
-      <h2 v-if="$veth.accounts.length">Your account<span v-if="$veth.accounts.length > 1">s</span></h2>
+    <div v-if="$eth.isConnected">
+      <p>Wallet type: {{ $eth.walletType }}</p>
+      <p>This is {{ $eth.isTestNetwork ? '' : 'not' }} a test network</p>
+      <h2 v-if="$eth.accounts.length">Your account<span v-if="$eth.accounts.length > 1">s</span></h2>
       <ul>
-        <li v-for='account in $veth.accounts' :key='account'>
-          {{ account }}<br>(balance = {{ $veth.balance(account) }})
+        <li v-for='account in $eth.accounts' :key='account'>
+          <a :href="$eth.explorer('address', account)" target="_blank">
+            {{ account }}
+          </a>
+          <br>(balance = {{ $eth.balance(account) }})
         </li>
       </ul>
     </div>
@@ -24,8 +30,8 @@ export default {
     }
   },
   methods: {
-    on() { this.$veth.on() },
-    off() { this.$veth.off() }
+    on() { this.$eth.on() },
+    off() { this.$eth.off() }
   }
 }
 </script>
