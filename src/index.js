@@ -132,6 +132,10 @@ export default class VueEthereum {
     return this.stateHandler.accounts
   }
 
+  get selectedAddress () {
+    return this.stateHandler.accounts[0]
+  }
+
   get web3 () {
     return web3Watcher.instance
   }
