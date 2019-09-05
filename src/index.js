@@ -63,6 +63,12 @@ export default class VueEthereum {
           isConnected () {
             return this.web3State && this.web3State.isConnected
           },
+          networkName () {
+            return getNetwork(this.networkId).name
+          },
+          isTestNetwork () {
+            return getNetwork(this.networkId).isTest
+          },
           balance () {
             return account => this.balanceOf[account]
           }
@@ -94,9 +100,6 @@ export default class VueEthereum {
   async on () {
     web3Watcher.setStateHook(this.stateHandler.saveWeb3State)
     web3Watcher.init()
-    // this.stateHandler.accounts = await web3Watcher.getAccounts()
-    // this.stateHandler.networkId = await web3Watcher.getId()
-    // this.stateHandler.walletType = await web3Watcher.getWalletType()
   }
 
   off () {
@@ -112,20 +115,20 @@ export default class VueEthereum {
     return this.stateHandler.isConnected
   }
 
+  get walletType () {
+    return this.stateHandler.walletType
+  }
+
   get networkId () {
     return this.stateHandler.networkId
   }
 
   get networkName () {
-    return getNetwork(this.stateHandler.networkId).name
+    return this.stateHandler.networkName
   }
 
   get isTestNetwork () {
-    return getNetwork(this.stateHandler.networkId).isTest
-  }
-
-  get walletType () {
-    return this.stateHandler.walletType
+    return this.stateHandler.isTestNetwork
   }
 
   get accounts () {
