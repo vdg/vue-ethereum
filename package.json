@@ -26,6 +26,7 @@
   ],
   "scripts": {
     "test": "exit 0;",
+    "prepublish": "yarn run build",
     "release": "release-it",
     "precommit": "lint-staged",
     "lint": "eslint src/*.js examples/vue-example",
@@ -50,6 +51,12 @@
       "eslint --fix",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run lint",
+      "pre-push": "yarn run lint"
+    }
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
