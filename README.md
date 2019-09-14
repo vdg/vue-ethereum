@@ -64,7 +64,7 @@ Use `npm run dev-vue` to run a simple example locally.
 
 ### Other repositories using vue-ethereum
 
-* [RGE testnet faucet](TheRougeProject/rge-faucet.git)
+* [RGE testnet faucet](https://github.com/TheRougeProject/rge-faucet)
 
 
 ## Licensed under MIT
