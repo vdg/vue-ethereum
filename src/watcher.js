@@ -35,18 +35,18 @@ const Web3Watcher = () => {
     if (window.ethereum) {
       try {
         $.provider = window.ethereum
+        if ($.provider.isMetaMask) {
+          $.state = { ...$.state, events: true }
+          window.ethereum.autoRefreshOnNetworkChange = false
+          window.ethereum.on('accountsChanged', onAccountsChanged)
+          window.ethereum.on('networkChanged', onNetworkChanged)
+        }
         $.accounts = await window.ethereum.enable()
         $.networkId = window.ethereum.networkVersion
         $.instance = new Web3(window.ethereum)
         $.state = {
           ...$.state,
           isConnected: await $.instance.eth.net.isListening()
-        }
-        if ($.provider.isMetaMask) {
-          $.state = { ...$.state, events: true }
-          window.ethereum.autoRefreshOnNetworkChange = false
-          window.ethereum.on('accountsChanged', onAccountsChanged)
-          window.ethereum.on('networkChanged', onNetworkChanged)
         }
       } catch (error) {
         // console.log(error)
