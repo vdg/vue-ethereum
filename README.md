@@ -60,7 +60,11 @@ Get a web3.js instance with the current connected provider
 
 ## Examples
 
-Use `npm run dev-vue` to run the example locally.
+Use `npm run dev-vue` to run a simple example locally.
+
+### Other repositories using vue-ethereum
+
+* [RGE testnet faucet](TheRougeProject/rge-faucet.git)
 
 
 ## Licensed under MIT
