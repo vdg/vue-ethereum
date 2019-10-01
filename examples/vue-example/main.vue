@@ -4,9 +4,9 @@
     <h1 v-else="$eth.isConnected">
       You are not connected to an Ethereum network
     </h1>
-    <button v-if="!$eth.isConnected" @click='on()'>switch on vue-ethereum</button>
+    <button v-if="!$eth.isConnected" @click='connect()'>connect to Ethereum</button>
     <div v-if="$eth.isConnected">
-      <button @click='off()'>switch off vue-ethereum</button>
+      <button @click='disconnect()'>disconnect to Ethereum</button>
       <button @click='log()'>get last logs</button>
       <p>Wallet type: {{ $eth.walletType }}</p>
       <p>This is {{ $eth.isTestNetwork ? '' : 'not' }} a test network</p>
@@ -37,8 +37,19 @@ export default {
     }
   },
   methods: {
-    on() { this.$eth.on() },
-    off() { this.$eth.off() },
+    connect() {
+      this.$eth.connect()
+      this.$eth.on('connected', ($) => {
+        console.log('connect to web3!', $)
+      })
+      this.$eth.on('accountsChanged', ($) => {
+        console.log('account has changed!', $)
+      })
+      this.$eth.on('networkChanged', ($) => {
+        console.log('network has changed!', $)
+      })
+    },
+    disconnect() { this.$eth.disconnect() },
     async log() {
       this.logs = await this.$eth.web3.eth.getPastLogs({
         fromBlock: 'latest'

@@ -84,9 +84,6 @@ export default class VueEthereum {
           saveWeb3State (s) {
             this.web3State = s
           },
-          setStateHook () {
-            web3Watcher.setStateHook(this.saveWeb3State)
-          },
           async getBalance (account) {
             Vue.set(this.balanceOf, account, await web3Watcher.getBalance(account))
           }
@@ -97,12 +94,12 @@ export default class VueEthereum {
     this.initialized = true
   }
 
-  async on () {
+  async connect () {
     web3Watcher.setStateHook(this.stateHandler.saveWeb3State)
     web3Watcher.init()
   }
 
-  off () {
+  disconnect () {
     this.stateHandler.saveWeb3State(null)
     this.stateHandler.accounts = []
     this.stateHandler.networkId = null
@@ -141,6 +138,10 @@ export default class VueEthereum {
 
   get web3 () {
     return web3Watcher.instance
+  }
+
+  on (event, fn) {
+    web3Watcher.on(event, fn)
   }
 
   explorer (type, id) {

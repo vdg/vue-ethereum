@@ -12,9 +12,13 @@ const Web3Watcher = () => {
     state: { init: 0, update: 0, provider: null, isConnected: false, events: false }
   }
 
+  const eventHandler = {}
+
   let stateHook = state => { throw new Error('Web3Watcher stateHook not set') }
 
   $.setStateHook = fn => { stateHook = fn }
+
+  $.on = (event, fn) => { eventHandler[event] = fn }
 
   const updateState = data => {
     $.state = { ...$.state, ...data, update: $.state.update + 1 }
@@ -24,11 +28,13 @@ const Web3Watcher = () => {
   const onAccountsChanged = accounts => {
     $.accounts = accounts
     updateState({})
+    typeof eventHandler.accountsChanged === 'function' && eventHandler.accountsChanged($)
   }
 
   const onNetworkChanged = networkId => {
     $.networkId = networkId
     updateState({})
+    typeof eventHandler.networkChanged === 'function' && eventHandler.networkChanged($)
   }
 
   $.init = async options => {
@@ -52,10 +58,10 @@ const Web3Watcher = () => {
         // console.log(error)
         $.state = { ...$.state, isConnected: false }
       }
-      console.log('initializing web3 connection...', $)
       updateState({ init: $.state.init + 1 })
       $.walletType = await $.getWalletType()
       updateState({})
+      typeof eventHandler.connected === 'function' && eventHandler.connected($)
       return Promise.resolve($.state)
     }
     try {
