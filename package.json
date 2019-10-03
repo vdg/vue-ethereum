@@ -1,6 +1,6 @@
 {
   "name": "vue-ethereum",
-  "version": "0.2.8",
+  "version": "0.3.0",
   "description": "Vue and Nuxt plugins for easy access to Ethereum (using web3.js 1.x)",
   "main": "dist/vue-ethereum.ssr.js",
   "module": "dist/vue-ethereum.esm.js",
