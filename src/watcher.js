@@ -1,15 +1,20 @@
-/* global web3:true */
 
 import Web3 from 'web3'
 
 const Web3Watcher = () => {
   const $ = {
-    provider: null,
+    injected: null,
     instance: null,
     accounts: [],
     networkId: null,
     walletType: null,
-    state: { init: 0, update: 0, provider: null, isConnected: false, events: false }
+    state: {
+      init: 0,
+      update: 0,
+      error: null,
+      isConnected: false,
+      events: false
+    }
   }
 
   const eventHandler = {}
@@ -40,8 +45,8 @@ const Web3Watcher = () => {
   $.init = async options => {
     if (window.ethereum) {
       try {
-        $.provider = window.ethereum
-        if ($.provider.isMetaMask) {
+        $.injected = window.ethereum
+        if ($.injected.isMetaMask) {
           $.state = { ...$.state, events: true }
           window.ethereum.autoRefreshOnNetworkChange = false
           window.ethereum.on('accountsChanged', onAccountsChanged)
@@ -55,23 +60,24 @@ const Web3Watcher = () => {
           isConnected: await $.instance.eth.net.isListening()
         }
       } catch (error) {
-        // console.log(error)
-        $.state = { ...$.state, isConnected: false }
+        $.state = { ...$.state, error: error.message, isConnected: false }
       }
       updateState({ init: $.state.init + 1 })
       $.walletType = await $.getWalletType()
       updateState({})
-      typeof eventHandler.connected === 'function' && eventHandler.connected($)
       return Promise.resolve($.state)
-    }
-    try {
-      // commit('setInjected', true)
-      if (window.web3.currentProvider) {
-        $.instance = new Web3(web3.currentProvider)
+    } else {
+      try {
+        // commit('setInjected', true)
+        if (window.web3.currentProvider) {
+          $.injected = window.web3
+          $.instance = new Web3(window.web3.currentProvider)
+        }
+      } catch (error) {
+        console.log(error)
       }
-    } catch (error) {
-      console.log(error)
     }
+    typeof eventHandler.connected === 'function' && $.state.isConnected && eventHandler.connected($)
     return Promise.resolve($.state)
   }
 

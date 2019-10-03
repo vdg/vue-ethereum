@@ -47,17 +47,23 @@ Add `vue-ethereum/nuxt` to modules section of `nuxt.config.js`
 **vue-ethereum** provides high level helpers to use in your templates.
 All features can be obtained from $eth property in Vue components.
 
+#### `.on('connected, fn)`
+#### `.on('networkChanged, fn)`
+#### `.on('accountsChanged', fn)`
+
 #### `.connect()`
 
 Connect to current window provider
 
 #### `.disconnect()`
+
 #### `.explorer()`
 #### `.balance()`
-#### `.on()`
 
-#### `.isConnected`
+#### `.walletDetected`
 #### `.walletType`
+#### `.isConnected`
+#### `.error`
 #### `.networkId`
 #### `.networkName`
 #### `.isTestNetwork`

@@ -60,6 +60,9 @@ export default class VueEthereum {
           }
         },
         computed: {
+          error () {
+            return this.web3State && this.web3State.error
+          },
           isConnected () {
             return this.web3State && this.web3State.isConnected
           },
@@ -108,12 +111,20 @@ export default class VueEthereum {
 
   /* helpers */
 
-  get isConnected () {
-    return this.stateHandler.isConnected
+  get walletDetected () {
+    return !!this.stateHandler.walletType
   }
 
   get walletType () {
     return this.stateHandler.walletType
+  }
+
+  get isConnected () {
+    return this.stateHandler.isConnected
+  }
+
+  get error () {
+    return this.stateHandler.error
   }
 
   get networkId () {
