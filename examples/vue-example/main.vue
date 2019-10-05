@@ -5,7 +5,7 @@
     <h1 v-else-if="$eth.walletDetected">
       Your wallet is not connected to an Ethereum network
       <br>
-      <span>error:{{ $eth.error }}</span>
+      <span v-if="$eth.error">error:{{ $eth.error }}</span>
     </h1>
     <h1 v-else>
       You are not connected to an Ethereum network

@@ -59,25 +59,26 @@ const Web3Watcher = () => {
           ...$.state,
           isConnected: await $.instance.eth.net.isListening()
         }
+        updateState({ init: $.state.init + 1 })
       } catch (error) {
         $.state = { ...$.state, error: error.message, isConnected: false }
+        updateState({})
       }
-      updateState({ init: $.state.init + 1 })
-      $.walletType = await $.getWalletType()
-      updateState({})
-      return Promise.resolve($.state)
     } else {
       try {
-        // commit('setInjected', true)
         if (window.web3.currentProvider) {
           $.injected = window.web3
           $.instance = new Web3(window.web3.currentProvider)
         }
+        updateState({ init: $.state.init + 1 })
       } catch (error) {
-        console.log(error)
+        $.state = { ...$.state, error: error.message, isConnected: false }
+        updateState({})
       }
     }
     typeof eventHandler.connected === 'function' && $.state.isConnected && eventHandler.connected($)
+    $.walletType = await $.getWalletType()
+    updateState({})
     return Promise.resolve($.state)
   }
 
