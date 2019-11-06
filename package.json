@@ -59,10 +59,10 @@
     }
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.3",
-    "@babel/core": "^7.6.3",
-    "@babel/node": "^7.6.3",
-    "@babel/preset-env": "^7.6.3",
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.0",
+    "@babel/node": "^7.7.0",
+    "@babel/preset-env": "^7.7.0",
     "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.0-beta.3",
     "css-loader": "^0.28.11",
@@ -83,17 +83,17 @@
     "prettier": "^1.18.2",
     "prettier-config-standard": "^1.0.1",
     "release-it": "^12.4.3",
-    "rollup": "^1.26.0",
+    "rollup": "^1.26.3",
     "rollup-plugin-vue": "^5.1.2",
     "vue-html-loader": "^1.2.4",
-    "vue-loader": "^15.7.1",
+    "vue-loader": "^15.7.2",
     "vue-style-loader": "^4.1.0",
     "vue-template-compiler": "^2.5.16",
     "vuex": "^3.0.1",
-    "web3": "1.x"
+    "web3": "1.2.x"
   },
   "peerDependencies": {
     "vue": "^2.5.16",
-    "web3": "1.x"
+    "web3": "1.2.x"
   }
 }
