@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1 v-if="$eth.walletDetected">Wallet detected : {{ $eth.walletType }}</h1>
-    <h1 v-if="$eth.isConnected">Connected to {{ $eth.networkName }} <span class="animated">❤️</span></h1>
+    <h1 v-if="$eth.isConnected">Connected to {{ $eth.networkId }} {{ $eth.networkName }} <span class="animated">❤️</span></h1>
     <h1 v-else-if="$eth.walletDetected">
       Your wallet is not connected to an Ethereum network
       <br>
@@ -12,7 +12,7 @@
     </h1>
     <button v-if="!$eth.isConnected" @click='connect()'>connect to Ethereum</button>
     <div v-if="$eth.isConnected">
-      <button @click='disconnect()'>disconnect to Ethereum</button>
+      <button @click='disconnect()'>disconnect Ethereum</button>
       <button @click='log()'>get last logs</button>
       <p>Wallet type: {{ $eth.walletType }}</p>
       <p>This is {{ $eth.isTestNetwork ? '' : 'not' }} a test network</p>

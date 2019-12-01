@@ -53,8 +53,8 @@ const Web3Watcher = () => {
           window.ethereum.on('networkChanged', onNetworkChanged)
         }
         $.accounts = await window.ethereum.enable()
-        $.networkId = window.ethereum.networkVersion
         $.instance = new Web3(window.ethereum)
+        $.networkId = window.ethereum.networkVersion
         $.state = {
           ...$.state,
           isConnected: await $.instance.eth.net.isListening()
@@ -78,6 +78,7 @@ const Web3Watcher = () => {
     }
     typeof eventHandler.connected === 'function' && $.state.isConnected && eventHandler.connected($)
     $.walletType = await $.getWalletType()
+    if (!$.networkId) $.networkId = await $.getId()
     updateState({})
     return Promise.resolve($.state)
   }
@@ -100,9 +101,12 @@ const Web3Watcher = () => {
   $.getWalletType = () => new Promise((resolve, reject) => {
     if (!$.instance || !$.instance.currentProvider) return reject(new Error('can determine provider'))
     const provider = $.instance.currentProvider
-    // TODO find new heuristic
+    // TODO find new heuristics
+    if (provider.isNiftyWallet) {
+      return resolve('Nifty')
+    }
     if (provider.isMetaMask) {
-      /* Nifty identify as Metamask */
+      /* some fork of Metamask may identify as Metamask */
       return resolve('MetaMask (or compatible)')
     }
     if (provider.isTrust) {

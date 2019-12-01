@@ -36,6 +36,18 @@ const NETWORKS = {
     isTest: true,
     hasExplorer: false
   },
+  5: {
+    name: 'Eth - Görli test network',
+    unit: 'ETH',
+    isTest: true,
+    hasExplorer: true,
+    defaultGasPrice: 1,
+    explorer: {
+      root: 'https://goerli.etherscan.io/',
+      address: 'address/',
+      tx: 'tx/'
+    }
+  },
   42: {
     name: 'Eth - Kovan test network',
     unit: 'ETH',
@@ -74,6 +86,18 @@ const NETWORKS = {
     defaultGasPrice: 1,
     explorer: {
       root: 'https://sokol-explorer.poa.network/',
+      address: 'account/',
+      tx: 'tx/'
+    }
+  },
+  100: {
+    name: 'xDAI',
+    unit: 'xDAI',
+    isTest: false,
+    hasExplorer: true,
+    defaultGasPrice: 1,
+    explorer: {
+      root: 'https://blockscout.com/poa/xdai/',
       address: 'account/',
       tx: 'tx/'
     }
