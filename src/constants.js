@@ -54,6 +54,18 @@ const NETWORKS = {
     isTest: true,
     hasExplorer: false
   },
+  56: {
+    name: 'Bsc - Mainnet',
+    unit: 'BNB',
+    isTest: false,
+    hasExplorer: true,
+    defaultGasPrice: 1,
+    explorer: {
+      root: 'https://bscscan.com/',
+      address: 'address/',
+      tx: 'tx/'
+    }    
+  },
   66: {
     name: 'Aldwych network',
     unit: 'ETH',
@@ -77,6 +89,18 @@ const NETWORKS = {
       address: 'account/',
       tx: 'tx/'
     }
+  },
+  97: {
+    name: 'Bsc - Testnet',
+    unit: 'BNB',
+    isTest: true,
+    hasExplorer: true,
+    defaultGasPrice: 1,
+    explorer: {
+      root: 'https://testnet.bscscan.com/',
+      address: 'address/',
+      tx: 'tx/'
+    }    
   },
   99: {
     name: 'POA - Main Net',
